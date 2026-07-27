@@ -4,7 +4,7 @@
  * Keep your working Google Apps Script production URL below.
  */
 const CONFIG = Object.freeze({
-  APPS_SCRIPT_URL: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE",
+  APPS_SCRIPT_URL: "https://script.google.com/macros/s/AKfycbx6tdVdVTAXQTtKSre9uPnFAWBBRrSx5EYb6Ua0WBOHu92TWDD1Bi-i3q6xv42G6UVz/exec",
 
   APP_NAME: "EGP Digit Span Test",
   VERSION: "2.0.0",
