@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EGP Digit Span cognitive assessment">
+  <title>EGP Digit Span Test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="brand-header">
+      <div class="brand-mark" aria-hidden="true">EGP</div>
+      <div>
+        <p class="eyebrow">Euler's Golden Pie Research</p>
+        <h1>Digit Span Test</h1>
+      </div>
+    </header>
 
+    <section id="registrationScreen" class="screen card active" aria-labelledby="registrationTitle">
+      <div class="step-label">Participant setup</div>
+      <h2 id="registrationTitle">Enter your registration details</h2>
+      <p class="muted">
+        Enter the ID assigned by the study coordinator. Do not enter your name.
+      </p>
+
+      <form id="registrationForm" novalidate>
+        <label for="registrationId">Registration ID</label>
+        <input
+          id="registrationId"
+          name="registrationId"
+          type="text"
+          maxlength="50"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="Example: EGP-0012"
+          required
+        >
+
+        <label for="testType">Assessment stage</label>
+        <select id="testType" name="testType" required>
+          <option value="">Select one</option>
+          <option value="pretest">Pretest</option>
+          <option value="posttest">Post-test</option>
+        </select>
+
+        <p id="registrationError" class="form-error" role="alert"></p>
+
+        <button class="primary-button" type="submit">Continue</button>
+      </form>
+    </section>
+
+    <section id="readyScreen" class="screen card" aria-labelledby="readyTitle">
+      <div class="step-label">Ready</div>
+      <h2 id="readyTitle">Digit Span Assessment</h2>
+      <div class="participant-summary">
+        <span>Registration ID</span>
+        <strong id="readyRegistrationId"></strong>
+        <span>Assessment stage</span>
+        <strong id="readyTestType"></strong>
+      </div>
+      <div class="instructions">
+        <h3>Instructions</h3>
+        <p>Digits will appear one at a time. Memorize them in the order shown.</p>
+        <p>Afterward, select the digits in the same order and press <strong>Submit sequence</strong>.</p>
+        <p>Each digit can be selected only once, matching the original PsyToolkit task.</p>
+      </div>
+      <button id="beginTestButton" class="primary-button" type="button">Begin test</button>
+    </section>
+
+    <section id="testScreen" class="screen test-card" aria-labelledby="testTitle">
+      <h2 id="testTitle" class="sr-only">Digit span assessment in progress</h2>
+
+      <div class="test-topbar">
+        <span id="stageBadge" class="badge"></span>
+        <span id="progressText" class="progress-text">Assessment in progress</span>
+      </div>
+
+      <div id="presentationArea" class="presentation-area" aria-live="assertive">
+        <div id="presentationMessage" class="presentation-message"></div>
+        <div id="digitDisplay" class="digit-display"></div>
+      </div>
+
+      <div id="responseArea" class="response-area hidden">
+        <p class="response-label">Your sequence</p>
+        <div id="selectedSequence" class="selected-sequence" aria-live="polite">
+          <span class="sequence-placeholder">Select digits below</span>
+        </div>
+
+        <div id="digitPad" class="digit-pad" aria-label="Digit selection keypad"></div>
+
+        <div class="response-actions">
+          <button id="clearButton" class="secondary-button" type="button">Clear last</button>
+          <button id="submitSequenceButton" class="primary-button" type="button">
+            Submit sequence
+          </button>
+        </div>
+      </div>
+
+      <div id="feedbackArea" class="feedback-area hidden" aria-live="assertive"></div>
+    </section>
+
+    <section id="submittingScreen" class="screen card centered" aria-labelledby="submittingTitle">
+      <div class="spinner" aria-hidden="true"></div>
+      <h2 id="submittingTitle">Saving results</h2>
+      <p class="muted">Please keep this page open.</p>
+    </section>
+
+    <section id="resultsScreen" class="screen card centered" aria-labelledby="resultsTitle">
+      <div class="completion-icon" aria-hidden="true">✓</div>
+      <div class="step-label">Assessment complete</div>
+      <h2 id="resultsTitle">Results recorded</h2>
+
+      <div class="score-panel">
+        <span>Final digit span</span>
+        <strong id="finalScore">0</strong>
+      </div>
+
+      <div class="result-grid">
+        <div>
+          <span>Total trials</span>
+          <strong id="totalTrials">0</strong>
+        </div>
+        <div>
+          <span>Correct trials</span>
+          <strong id="correctTrials">0</strong>
+        </div>
+        <div>
+          <span>Incorrect trials</span>
+          <strong id="incorrectTrials">0</strong>
+        </div>
+      </div>
+
+      <p id="submissionMessage" class="submission-message"></p>
+      <p class="muted small">You may now close this page.</p>
+    </section>
+
+    <noscript>
+      <section class="card active">
+        <h2>JavaScript required</h2>
+        <p>This assessment requires JavaScript to run.</p>
+      </section>
+    </noscript>
+  </main>
+
+  <footer>
+    <span id="footerAppName">EGP Digit Span Test</span>
+    <span aria-hidden="true">•</span>
+    <span id="footerVersion"></span>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
