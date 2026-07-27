@@ -1,117 +1,92 @@
-# EGP Digit Span Test
+# EGP Digit Span Test — Version 2
 
-A GitHub Pages version of the PsyToolkit digit span task, prepared for
-Euler's Golden Pie research data collection.
+This package adds:
 
-## What was preserved from the supplied PsyToolkit task
-
-- Starts at a span of 2 digits
-- Digits are sampled without replacement
-- Each digit is displayed for 800 milliseconds
-- Participants enter the sequence in the original order
-- A selected digit cannot be selected again during the same response
-- `Clear last` removes the most recently selected digit
-- Two correct trials at a span are required to advance
-- Two incorrect trials at a span stop the test
-- A maximum of three trials can occur at a span
-- The maximum measured span is 9
-- Correct/incorrect feedback is displayed for 2 seconds
-- The final score is the highest span passed
-
-The original training/demo screens were removed. The interface, participant
-registration, pretest/post-test choice, and Google Sheets submission were added.
+- Dark theme
+- Refresh/close warning during an active assessment
+- Browser back-button protection during an active assessment
+- Duplicate Registration ID + test-type prevention
+- Password-protected dashboard
+- Pretest/post-test comparison table
+- Dashboard CSV download
+- Return to Main Screen button
 
 ## Files
 
 ```text
-egp-digit-span-test/
-├── index.html
-├── style.css
-├── script.js
-├── config.js
-├── Code.gs
-├── README.md
-└── assets/
+index.html
+style.css
+script.js
+config.js
+dashboard.html
+dashboard.css
+dashboard.js
+Code.gs
+README.md
+assets/
 ```
 
-## Setup order
+## Upgrade steps
 
-### 1. Prepare the Google Sheet
+### 1. Preserve your working Apps Script URL
 
-Create two tabs named exactly:
+In `config.js`, replace the placeholder with the same working `/exec` URL.
 
-- `Summary`
-- `TrialData`
+### 2. Replace Apps Script code
 
-### 2. Add the Apps Script
+Replace your current Apps Script `Code.gs` with the new `Code.gs`.
 
-Open the spreadsheet and go to:
+Then deploy a **new version**:
 
-`Extensions → Apps Script`
+`Deploy → Manage deployments → Edit → New version → Deploy`
 
-Replace the contents of `Code.gs` with the supplied `Code.gs` file.
+Keep the same production `/exec` URL.
 
-Deploy it as a web app:
+### 3. Configure the dashboard password
 
-- Execute as: **Me**
-- Who has access: **Anyone**
+In Apps Script:
 
-Copy the production URL ending in `/exec`.
+1. Open **Project Settings**
+2. Scroll to **Script Properties**
+3. Add a property:
+   - Property: `DASHBOARD_KEY`
+   - Value: choose a private password
+4. Save
 
-### 3. Configure the website
+Do not place this key in GitHub or `config.js`.
 
-Open `config.js` and replace:
+### 4. Upload the website files
 
-```javascript
-APPS_SCRIPT_URL: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_EXEC_URL_HERE",
+Replace the existing repository files with the files in this package.
+
+The dashboard will be available at:
+
+```text
+https://YOUR-GITHUB-PAGES-SITE/dashboard.html
 ```
 
-with your real `/exec` URL.
+## Important browser limitation
 
-### 4. Upload to GitHub
+Websites cannot completely disable browser refresh, closing, or navigation. This version:
 
-Upload all website files to the root of the repository.
+- triggers the browser's standard leave-page warning on refresh/close
+- intercepts the browser Back button during an active assessment
+- warns the participant and returns them to the test
 
-### 5. Enable GitHub Pages
+This is the strongest normal browser protection available without kiosk software.
 
-Go to:
+## Duplicate behavior
 
-`Repository Settings → Pages`
-
-Choose:
-
-- Source: `Deploy from a branch`
-- Branch: `main`
-- Folder: `/root`
-
-Save and wait for the website URL to appear.
-
-## Data structure
-
-The `Summary` sheet receives one row per completed assessment.
-
-The `TrialData` sheet receives one row for every trial, including:
+The system blocks a duplicate only when both values match:
 
 - Registration ID
-- Pretest or post-test
-- Span length
-- Target sequence
-- Participant response
-- Correct or incorrect
-- Response time
-- Correct/error counters at the span
+- Assessment stage
 
-## Research notes
+Therefore one participant may have:
 
-- Use anonymous registration IDs instead of participant names.
-- Keep the participant identity key in a separate protected file.
-- Use the same device type and testing conditions for pretest and post-test.
-- Do not let participants refresh or leave the page during an assessment.
-- Pilot the system before collecting real study data.
-- A maximum score of 9 may produce a ceiling effect after EGP training.
+- one pretest
+- one post-test
 
-## Attribution
+but not two pretests or two post-tests.
 
-The task logic was recreated from the PsyToolkit digit span implementation
-supplied for this project. Review PsyToolkit's applicable attribution and usage
-terms before public redistribution or publication.
+The Apps Script performs a server-side duplicate check again during submission to reduce accidental duplicate records.

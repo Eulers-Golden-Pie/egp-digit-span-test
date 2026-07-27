@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b12">
+  <title>EGP Research Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <main class="dashboard-shell">
+    <header class="dashboard-header">
+      <div>
+        <p class="eyebrow">Euler's Golden Pie Research</p>
+        <h1>Digit Span Dashboard</h1>
+      </div>
+      <a class="dashboard-link" href="index.html">Back to Test</a>
+    </header>
+
+    <section id="dashboardLogin" class="card active dashboard-login">
+      <div class="step-label">Admin access</div>
+      <h2>Open study dashboard</h2>
+      <p class="muted">Enter the dashboard key configured in Google Apps Script.</p>
+
+      <form id="dashboardLoginForm">
+        <label for="dashboardKey">Dashboard key</label>
+        <input id="dashboardKey" type="password" autocomplete="current-password" required>
+        <p id="dashboardError" class="form-error" role="alert"></p>
+        <button class="primary-button" type="submit">Load Dashboard</button>
+      </form>
+    </section>
+
+    <section id="dashboardContent" class="dashboard-content hidden">
+      <div class="dashboard-toolbar">
+        <p id="lastUpdated" class="muted"></p>
+        <button id="refreshDashboard" class="secondary-button" type="button">Refresh</button>
+      </div>
+
+      <div class="metrics-grid">
+        <article class="metric-card">
+          <span>Total assessments</span>
+          <strong id="metricTotal">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Unique participants</span>
+          <strong id="metricParticipants">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Average pretest</span>
+          <strong id="metricPretest">—</strong>
+        </article>
+        <article class="metric-card">
+          <span>Average post-test</span>
+          <strong id="metricPosttest">—</strong>
+        </article>
+        <article class="metric-card accent-card">
+          <span>Average paired change</span>
+          <strong id="metricChange">—</strong>
+        </article>
+        <article class="metric-card">
+          <span>Completed pairs</span>
+          <strong id="metricPairs">0</strong>
+        </article>
+      </div>
+
+      <section class="dashboard-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="step-label">Participants</p>
+            <h2>Pretest/Post-test Comparison</h2>
+          </div>
+          <button id="downloadCsvButton" class="secondary-button" type="button">Download CSV</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Registration ID</th>
+                <th>Pretest</th>
+                <th>Post-test</th>
+                <th>Change</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="participantTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>
